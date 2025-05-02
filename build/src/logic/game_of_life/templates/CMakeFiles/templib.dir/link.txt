@@ -1,2 +1,0 @@
-/usr/bin/ar qc libtemplib.a CMakeFiles/templib.dir/parser.cpp.o
-/usr/bin/ranlib libtemplib.a

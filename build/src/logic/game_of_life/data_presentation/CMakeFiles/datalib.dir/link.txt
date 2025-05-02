@@ -1,2 +1,0 @@
-/usr/bin/ar qc libdatalib.a CMakeFiles/datalib.dir/rule.cpp.o CMakeFiles/datalib.dir/cell.cpp.o
-/usr/bin/ranlib libdatalib.a
