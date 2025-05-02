@@ -32,19 +32,19 @@ namespace game_of_life {
 // Game = IExecutor + ICalculator ( +  IGraphic)
 // [ game_loop_1 ] [ game_loop_2 ] [ game_loop_3 ] ... [ game_loop_n ]
 class Game {
- public:
+public:
   /////////////////////////////////////////////////////
 
   Game() = default;
   ~Game() = default;
 
   // Non-copyable
-  Game(const Game&) = delete;
-  Game& operator=(const Game&) = delete;
+  Game(const Game &) = delete;
+  Game &operator=(const Game &) = delete;
 
   // Non-movable
-  Game(Game&&) = delete;
-  Game& operator=(Game&&) = delete;
+  Game(Game &&) = delete;
+  Game &operator=(Game &&) = delete;
 
   /////////////////////////////////////////////////////
 
@@ -67,7 +67,7 @@ class Game {
   //! Online functionality in the game loop:
 
   // Info
-  const GameInfo& Info();
+  const GameInfo &Info();
 
   // Speed
   void IncreaseGameSpeed();
@@ -81,20 +81,18 @@ class Game {
   void Clear();
 
   // Get the next iteration in the game
-  const SetCells& OneIter();
+  const SetCells &OneIter();
 
   // Template
   void SetTemplate(std::string template_name, Cell where);
   void SetNewCell(Cell cell);
   void DeleteCell(Cell cell);
 
-  // todo : wtf
-  template <class Container>
-  void PutCells(Container&& cells);
+  template <class Container> void PutCells(Container &&cells);
 
   /////////////////////////////////////////////////////
 
- private:
+private:
   // Game speed
   std::size_t iter_count_;
   sf::Int32 update_frequency_{0};
@@ -110,6 +108,6 @@ class Game {
   std::unique_ptr<executor::IExexutor> executor_;
 };
 
-}  // namespace game_of_life
+} // namespace game_of_life
 
-}  // namespace automata
+} // namespace automata

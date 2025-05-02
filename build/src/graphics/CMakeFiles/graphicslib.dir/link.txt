@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgraphicslib.a CMakeFiles/graphicslib.dir/grid.cpp.o CMakeFiles/graphicslib.dir/user_interface.cpp.o CMakeFiles/graphicslib.dir/buttons.cpp.o CMakeFiles/graphicslib.dir/main_menu.cpp.o CMakeFiles/graphicslib.dir/event_handler.cpp.o
+/usr/bin/ranlib libgraphicslib.a

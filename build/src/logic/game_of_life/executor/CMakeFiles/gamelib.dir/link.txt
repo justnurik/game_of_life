@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgamelib.a CMakeFiles/gamelib.dir/calculator/np_calculator.cpp.o CMakeFiles/gamelib.dir/calculator/p_calculator.cpp.o CMakeFiles/gamelib.dir/single_threaded_executor.cpp.o CMakeFiles/gamelib.dir/cache.cpp.o
+/usr/bin/ranlib libgamelib.a
