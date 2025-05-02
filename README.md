@@ -1,6 +1,6 @@
 # Conway's Game of Life с дополнительными возможностями
 
-![Демонстрация игры](video/gameplay.gif)
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/intro.gif)
 
 Реализация классического клеточного автомата "Жизнь" Конвея с расширенным функционалом. Проект создан в рамках учебной практики.
 
@@ -39,7 +39,7 @@ cmake --build .
 
 ## Навигация и управление
 
-![]
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/game_play.gif)
 
 | Действие                                 | Клавиша/Кнопка           |
 | ---------------------------------------- | ------------------------ |
