@@ -1,4 +1,4 @@
-# Conway's Game of Life с дополнительными возможностями
+# Game of Life
 
 ![](https://github.com/justnurik/game_of_life/blob/master/%20video/intro.gif)
 
