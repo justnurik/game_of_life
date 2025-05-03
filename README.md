@@ -53,11 +53,33 @@ cmake --build .
 | Сброс выбора шаблона                     | Backspace                |
 | Перемещение по полю (в увеличенном виде) | Клавиши WASD или стрелки |
 
+
+### Про ускорение
+Ускорение пока работает не стабильно, и зависит от железа
+
+Звездопад
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D0%BF%D0%B0%D0%B4.gif)
+
 ## Шаблоны
 
 1. Выберите шаблон в меню (ПКМ).
 2. Разместите его ЛКМ на поле.
 3. Можно размещать несколько копий подряд.
+
+## Стресс тест
+
+Большая карта (1kx1k)
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%B0%D1%8F%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0.gif)
+
+
+
+
+<details>
+  <summary markdown="span">Мигрение (осторожно можно ослепнуть!)</summary>
+
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/%D0%BC%D0%B8%D0%B3%D1%80%D0%B5%D0%BD%D0%B8%D0%B5.gif)
+
+</details>
 
 ## TODO
 
