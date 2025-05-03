@@ -80,7 +80,7 @@ cmake --build .
   <summary markdown="span">Мигрение (осторожно можно ослепнуть!)</summary>
 
 
-    ![](https://github.com/justnurik/game_of_life/blob/master/%20video/%D0%BC%D0%B8%D0%B3%D1%80%D0%B5%D0%BD%D0%B8%D0%B5.gif)
+![](https://github.com/justnurik/game_of_life/blob/master/%20video/%D0%BC%D0%B8%D0%B3%D1%80%D0%B5%D0%BD%D0%B8%D0%B5.gif)
 
 
 </details>
