@@ -1,13 +1,9 @@
 #pragma once
 
-#include <oneapi/tbb/cache_aligned_allocator.h>
-#include <oneapi/tbb/null_mutex.h>
-#include <oneapi/tbb/queuing_mutex.h>
-#include <oneapi/tbb/spin_mutex.h>
-#include <tbb/tbb.h>
+#include <array>
+#include <atomic>
 #include <cstddef>
-#include <deque>
-#include <vector>
+#include <cstdint>
 
 #include "../../data_presentation/game_config.hpp"
 #include "icalculator.hpp"
@@ -19,47 +15,43 @@ namespace executor {
 // Set => Calculate => Take the result
 // All calculations take place in one thread
 class ParallelCalculator : public ICalculator {
- public:
+public:
   /////////////////////////////////////////////////////
 
   // One-shot [or if the game configuration has changed]
-  void Set(GameConfig* config) override;
+  void Set(GameConfig *config) override;
 
   // Clear result
   void Clear() override;
 
   // Calc result
-  void Calc(SetCells* status_quo) override;
+  void Calc(SetCells *status_quo) override;
 
   // Set result into [where]
-  void Update(SetCells* where) override;
+  void Update(SetCells *where) override;
 
   /////////////////////////////////////////////////////
 
- private:
+private:
   void CellProcessing(std::size_t thread_id, Cell cell, CellState is_alive);
 
   /////////////////////////////////////////////////////
 
- private:
-  // Mutex:
-  tbb::spin_mutex mutex1_;
-  tbb::spin_mutex mutex2_;
+private:
+  SetCells *set_{nullptr};
+  std::atomic_uint64_t thread_id_{0};
 
-  SetCells* set_{nullptr};
-  std::size_t thread_id_{0};
-
-  // todo: std::vector<std::vector<Cell>> => std::vector<std::list<Cell>> +
-  // todo: + stack allocator
-  std::vector<std::deque<Cell>> split_response_;
+  // todo:
+  static constexpr std::uint64_t max_thread_count_ = 1'000;
+  std::array<SetCells, max_thread_count_> split_responce_;
 
   // Calculate result
   SetCells result;
 
   // Game config
-  GameConfig* config_{nullptr};
+  GameConfig *config_{nullptr};
 };
 
-}  // namespace executor
+} // namespace executor
 
-}  // namespace automata::game_of_life
+} // namespace automata::game_of_life

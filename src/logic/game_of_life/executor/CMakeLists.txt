@@ -1,4 +1,4 @@
-add_library(gamelib calculator/np_calculator.cpp calculator/p_calculator.cpp single_threaded_executor.cpp cache.cpp)
+add_library(gamelib calculator/np_calculator.cpp calculator/p_calculator.cpp single_threaded_executor.cpp)
 
 # Equivalent to command-line option of `-DCMAKE_PREFIX_PATH=...`
 list(APPEND CMAKE_MODULE_PATH "deps/tbb/cmake/")

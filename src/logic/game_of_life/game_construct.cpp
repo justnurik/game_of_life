@@ -1,13 +1,14 @@
 #include <cstddef>
+#include <cstdlib>
 #include <type_traits>
 
-#include "game_construct.hpp"
 #include "data_presentation/rule.hpp"
-#include "executor/iexecutor.hpp"
-// #include "executor/multi_threaded_executor.hpp"
+#include "data_presentation/set_cells.hpp"
 #include "executor/calculator/np_calculator.hpp"
 #include "executor/calculator/p_calculator.hpp"
+#include "executor/iexecutor.hpp"
 #include "executor/single_threaded_executor.hpp"
+#include "game_construct.hpp"
 #include "templates/parser.hpp"
 
 namespace automata::game_of_life {
@@ -53,38 +54,28 @@ void Game::OneLoopStart() {
   executor_->SetConfig(&config_);
   executor_->Start();
 }
-void Game::OneLoopStop() {
-  executor_->Stop();
-}
+void Game::OneLoopStop() { executor_->Stop(); }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-const GameInfo& Game::Info() {
-  return info_;
-}
+const GameInfo &Game::Info() { return info_; }
 
-void Game::IncreaseGameSpeed() {
-  ++iter_count_;
-}
+void Game::IncreaseGameSpeed() { ++iter_count_; }
 void Game::DecreaseGameSpeed() {
   if (iter_count_ > 0) {
     --iter_count_;
   }
 }
 
-void Game::Pause() {
-  executor_->Pause();
-}
+void Game::Pause() { executor_->Pause(); }
 void Game::ReStart() {
   timer_.restart();
   executor_->ReStart();
 }
 
-void Game::Clear() {
-  executor_->Clear();
-}
+void Game::Clear() { executor_->Clear(); }
 
-const SetCells& Game::OneIter() {
+const SetCells &Game::OneIter() {
   if (timer_.getElapsedTime().asMilliseconds() >= update_frequency_) {
     for (std::size_t iter = 0; iter < iter_count_; ++iter) {
       executor_->Step();
@@ -110,15 +101,10 @@ void Game::SetTemplate(std::string template_name, Cell where) {
   executor_->SetNewCells(std::move(parse.living_cells_));
 }
 
-void Game::SetNewCell(Cell cell) {
-  executor_->SetNewCells({cell});
-}
-void Game::DeleteCell(Cell cell) {
-  executor_->DeleteCells({cell});
-}
+void Game::SetNewCell(Cell cell) { executor_->SetNewCells({cell}); }
+void Game::DeleteCell(Cell cell) { executor_->DeleteCells({cell}); }
 
-template <class Container>
-void Game::PutCells(Container&& cells) {
+template <class Container> void Game::PutCells(Container &&cells) {
   if constexpr (std::is_same_v<Container, SetCells>) {
     executor_->SetNewCells(std::move(cells));
 
@@ -129,4 +115,4 @@ void Game::PutCells(Container&& cells) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-}  // namespace automata::game_of_life
+} // namespace automata::game_of_life

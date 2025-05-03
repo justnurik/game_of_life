@@ -1,17 +1,17 @@
-#include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
 #include "src/logic/game_of_life/for_user.hpp"
 
-#include "src/graphics/grid.hpp"
-#include "src/graphics/user_interface.hpp"
-#include "src/graphics/main_menu.hpp"
 #include "src/graphics/event_handler.hpp"
+#include "src/graphics/grid.hpp"
+#include "src/graphics/main_menu.hpp"
+#include "src/graphics/user_interface.hpp"
 #include "src/logic/game_of_life/game_construct.hpp"
 
 int main() {
   automata::Game rt;
-  std::size_t size_field = 500;
+  std::size_t size_field = 1000;
 
   rt.SetExecutor(automata::Executors::SingleThreadedExecutor);
   rt.SetCalculator(automata::Calculators::ParallelCalculator);
@@ -32,7 +32,7 @@ int main() {
   while (grid.GetWindow().isOpen()) {
     grid.CalculateMousePosition();
     grid.UpdateSelector();
-    grid.UpdateDebug();  // Remove later
+    grid.UpdateDebug(); // Remove later
 
     EventHandler::Handle(grid, ui, rt, menu);
 

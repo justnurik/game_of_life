@@ -9,7 +9,7 @@ namespace automata::game_of_life {
 namespace executor {
 
 class SingleThreadedExecutor : public IExexutor {
- public:
+public:
   /////////////////////////////////////////////////////
 
   ~SingleThreadedExecutor();
@@ -17,8 +17,8 @@ class SingleThreadedExecutor : public IExexutor {
   /////////////////////////////////////////////////////
 
   // Initial
-  void SetConfig(GameConfig* config) override;
-  void SetCalculator(std::unique_ptr<ICalculator>&& calculator) override;
+  void SetConfig(GameConfig *config) override;
+  void SetCalculator(std::unique_ptr<ICalculator> &&calculator) override;
 
   /////////////////////////////////////////////////////
 
@@ -35,15 +35,15 @@ class SingleThreadedExecutor : public IExexutor {
 
   // Get the next iteration in the game and show
   void Step() override;
-  const SetCells& Show() override;
+  const SetCells &Show() override;
 
   //
-  void SetNewCells(SetCells&& new_cells) override;
-  void DeleteCells(const SetCells& cells) override;
+  void SetNewCells(SetCells &&new_cells) override;
+  void DeleteCells(const SetCells &cells) override;
 
   /////////////////////////////////////////////////////
 
- private:
+private:
   enum State {
     run,
     pause,
@@ -54,7 +54,7 @@ class SingleThreadedExecutor : public IExexutor {
   State executor_state_{State::stop};
 
   // Game
-  GameConfig* config_;
+  GameConfig *config_;
   SetCells living_cells_;
 
   // Calculator
@@ -63,6 +63,6 @@ class SingleThreadedExecutor : public IExexutor {
   /////////////////////////////////////////////////////
 };
 
-}  // namespace executor
+} // namespace executor
 
-}  // namespace automata::game_of_life
+} // namespace automata::game_of_life

@@ -1,13 +1,11 @@
 #include "user_interface.hpp"
-#include <sstream>
 #include "SFML/Graphics/View.hpp"
 #include "grid.hpp"
+#include <sstream>
 // #include "SFML/Window/Mouse.hpp"
 
-UserInterface::UserInterface(sf::View& view, sf::RenderWindow& window)
-    : view_(view),
-      window_(window) {
-}
+UserInterface::UserInterface(sf::View &view, sf::RenderWindow &window)
+    : view_(view), window_(window) {}
 
 void UserInterface::SetUpScrollArea() {
   scroll_area_.setCenter((Grid::view_coeff_ * desktop_.width) / 2,
@@ -70,15 +68,15 @@ void UserInterface::Draw() {
   window_.setView(scroll_area_);
   window_.draw(left_ui_);
   switch (menu_state) {
-    case Main:
-      menu_.DrawButtons(window_);
-      break;
-    case Templates:
-      buttons_.DrawButtons(window_);
-      break;
-    case Rules:
-      rules_.DrawButtons(window_);
-      break;
+  case Main:
+    menu_.DrawButtons(window_);
+    break;
+  case Templates:
+    buttons_.DrawButtons(window_);
+    break;
+  case Rules:
+    rules_.DrawButtons(window_);
+    break;
   }
 }
 
@@ -126,67 +124,67 @@ void UserInterface::MouseClicked() {
   window_.setView(scroll_area_);
   auto mouse_pos_view = window_.mapPixelToCoords(Grid::mouse_pos_window_);
   switch (menu_state) {
-    case Main:
-      for (auto& button : menu_.buttons) {
-        if (button.Clicked(mouse_pos_view)) {
-          name = button.ClickHandle();
-          HandleMenu(std::move(name));
+  case Main:
+    for (auto &button : menu_.buttons) {
+      if (button.Clicked(mouse_pos_view)) {
+        name = button.ClickHandle();
+        HandleMenu(std::move(name));
+      }
+    }
+    break;
+  case Templates:
+    for (auto &button : buttons_.buttons) {
+      if (button.Clicked(mouse_pos_view)) {
+        name = button.ClickHandle();
+        if (name == "<--") {
+          menu_state = Main;
+          ResetScrollArea();
+          // Grid::view_coeff_ = 0.20f;
+          // SetUpLeftPanel();
+          // SetUpScrollArea();
+          break;
+        }
+        SetTemplate(std::move(name));
+      }
+    }
+    break;
+  case Rules:
+    for (auto &button : rules_.buttons) {
+      if (button.Clicked(mouse_pos_view)) {
+        name = button.ClickHandle();
+        if (name == "<--") {
+          menu_state = Main;
+          ResetScrollArea();
+          // Grid::view_coeff_ = 0.20f;
+          // SetUpLeftPanel();
+          // SetUpScrollArea();
+          break;
         }
       }
-      break;
-    case Templates:
-      for (auto& button : buttons_.buttons) {
-        if (button.Clicked(mouse_pos_view)) {
-          name = button.ClickHandle();
-          if (name == "<--") {
-            menu_state = Main;
-            ResetScrollArea();
-            // Grid::view_coeff_ = 0.20f;
-            // SetUpLeftPanel();
-            // SetUpScrollArea();
-            break;
-          }
-          SetTemplate(std::move(name));
-        }
-      }
-      break;
-    case Rules:
-      for (auto& button : rules_.buttons) {
-        if (button.Clicked(mouse_pos_view)) {
-          name = button.ClickHandle();
-          if (name == "<--") {
-            menu_state = Main;
-            ResetScrollArea();
-            // Grid::view_coeff_ = 0.20f;
-            // SetUpLeftPanel();
-            // SetUpScrollArea();
-            break;
-          }
-        }
-      }
-      break;
-    default:
-      break;
+    }
+    break;
+  default:
+    break;
   }
   window_.setView(window_.getDefaultView());
 }
 
 void UserInterface::MouseReleased() {
   switch (menu_state) {
-    case Main:
-      for (auto& button : menu_.buttons) {
-        button.ReleaseHandle();
-      }
-      break;
-    case Templates:
-      for (auto& button : buttons_.buttons) {
-        button.ReleaseHandle();
-      }
-      break;
-    case Rules:
-      break;
-    default:
-      break;
+  case Main:
+    for (auto &button : menu_.buttons) {
+      button.ReleaseHandle();
+    }
+    break;
+  case Templates:
+    for (auto &button : buttons_.buttons) {
+      button.ReleaseHandle();
+    }
+    break;
+  case Rules:
+    break;
+  default:
+    break;
   }
 }
 
@@ -198,11 +196,9 @@ void UserInterface::RenderUI() {
   window_.display();
 }
 
-sf::View& UserInterface::GetScrollArea() {
-  return scroll_area_;
-}
+sf::View &UserInterface::GetScrollArea() { return scroll_area_; }
 
-bool UserInterface::MouseInPanel(const sf::Vector2f& mouse_pos) {
+bool UserInterface::MouseInPanel(const sf::Vector2f &mouse_pos) {
   return left_ui_.getGlobalBounds().contains(mouse_pos);
 }
 
@@ -234,13 +230,9 @@ void UserInterface::ReleaseTemplate() {
   template_name = "";
 }
 
-bool UserInterface::TemplateCaptured() {
-  return template_captured;
-}
+bool UserInterface::TemplateCaptured() { return template_captured; }
 
-std::string UserInterface::GetTemplate() {
-  return template_name;
-}
+std::string UserInterface::GetTemplate() { return template_name; }
 
 float UserInterface::GetPanelWidth() {
   return Grid::view_coeff_ * Grid::desktop_.width;
@@ -253,12 +245,10 @@ void UserInterface::ResetScrollArea() {
 
 void UserInterface::SetUpMenu() {
   menu_.button_height = menu_.button_width;
-  menu_.margin = -25.f;  // Update later
+  menu_.margin = -25.f; // Update later
   menu_.SetButton("Rules");
   menu_.SetButton("Templates");
   menu_.SetButton("Modes");
 }
 
-void UserInterface::SetUpRules() {
-  rules_.SetButton("<--");
-}
+void UserInterface::SetUpRules() { rules_.SetButton("<--"); }

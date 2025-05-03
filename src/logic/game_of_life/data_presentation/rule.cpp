@@ -48,16 +48,14 @@ CellState GameRules::WillCellSurvive(CellState status_quo,
 GameRules::GameRules()
     : neighbors(neighborhood_of_moore),
       cell_survival_conditions(cell_survival_conditions_classic),
-      cell_birth_conditions(cell_birth_conditions_classic) {
-}
+      cell_birth_conditions(cell_birth_conditions_classic) {}
 
 GameRules::GameRules(std::vector<Offset> neighbor,
                      std::unordered_set<std::size_t> cell_survival_cond,
                      std::unordered_set<std::size_t> cell_birth_cond)
     : neighbors(std::move(neighbor)),
       cell_survival_conditions(std::move(cell_survival_cond)),
-      cell_birth_conditions(std::move(cell_birth_cond)) {
-}
+      cell_birth_conditions(std::move(cell_birth_cond)) {}
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -84,45 +82,53 @@ std::vector<automata::game_of_life::rule::Offset> hexagon_neighbors = {
 ////////////////////////////////////////////////////////////////////////////////////
 
 GameRules::GameRules(GameTemplate template_name) {
-  if (template_name == GameTemplate::Default) {
+  switch (template_name) {
+  case GameTemplate::Default:
     neighbors = neighborhood_of_moore;
     cell_birth_conditions = cell_birth_conditions_classic;
     cell_survival_conditions = cell_survival_conditions_classic;
+    break;
 
-  } else if (template_name == GameTemplate::SquareWaves) {
-    neighbors = neighborhood_of_von_neumann;
+  case GameTemplate::Umbrellas:
+    neighbors = octagon_neighbors;
+    cell_birth_conditions = {1};
+    cell_survival_conditions = {};
+    break;
+
+  case GameTemplate::BlinkingDiamonds:
+    neighbors = hexagon_neighbors;
     cell_birth_conditions = {1, 2};
     cell_survival_conditions = {1};
+    break;
 
-  } else if (template_name == GameTemplate::Snowflake) {
+  case GameTemplate::Snowflake:
     neighbors = hexagon_neighbors;
     cell_birth_conditions = {1, 3, 5, 7};
     cell_survival_conditions = {0, 2, 4, 6, 8};
+    break;
 
-  } else if (template_name == GameTemplate::BlinkingDiamonds) {
-    neighbors = hexagon_neighbors;
+  case GameTemplate::SquareWaves:
+    neighbors = neighborhood_of_von_neumann;
     cell_birth_conditions = {1, 2};
     cell_survival_conditions = {1};
+    break;
 
-  } else if (template_name == GameTemplate::Lol) {
-    neighbors = octagon_neighbors;
-    cell_survival_conditions = {1};
-    cell_birth_conditions = {0, 1, 4, 6, 8};
-
-  } else if (template_name == GameTemplate::Umbrellas) {
-    neighbors = octagon_neighbors;
-    cell_birth_conditions = {1};
-    cell_survival_conditions = {};
-
-  } else if (template_name == GameTemplate::FlashingSquares) {
+  case GameTemplate::FlashingSquares:
     neighbors = neighborhood_of_moore;
     cell_birth_conditions = {1};
     cell_survival_conditions = {};
+    break;
+
+  case GameTemplate::Lol:
+    neighbors = octagon_neighbors;
+    cell_survival_conditions = {1};
+    cell_birth_conditions = {0, 1, 4, 6, 8};
+    break;
   }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-}  // namespace rule
+} // namespace rule
 
-}  // namespace automata::game_of_life
+} // namespace automata::game_of_life

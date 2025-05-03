@@ -26,7 +26,7 @@ void Buttons::SetUp() {
   text_margin_top = 10.f;
 }
 
-void Buttons::SetButton(std::string text) {
+void Buttons::SetButton(const std::string &text) {
   Button button;
   button.shape.setSize(sf::Vector2f(button_width, button_height));
   button.shape.setPosition(margin_left, last_button_id * button_height +
@@ -54,14 +54,14 @@ void Buttons::SetButton(std::string text) {
   buttons.push_back(button);
 }
 
-void Buttons::DrawButtons(sf::RenderWindow& window) {
+void Buttons::DrawButtons(sf::RenderWindow &window) {
   for (size_t i = 0; i < last_button_id; ++i) {
     window.draw(buttons[i].shape);
     window.draw(buttons[i].text);
   }
 }
 
-bool Button::Clicked(const sf::Vector2f& mouse_pos) {
+bool Button::Clicked(const sf::Vector2f &mouse_pos) {
   return shape.getGlobalBounds().contains(mouse_pos.x, mouse_pos.y);
 }
 

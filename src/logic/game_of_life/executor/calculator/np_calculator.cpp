@@ -9,15 +9,13 @@ namespace executor {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-void NoParallelCalculator::Set(GameConfig* config) {
-  config_ = config;
-}
+void NoParallelCalculator::Set(GameConfig *config) { config_ = config; }
 
-void NoParallelCalculator::CellProcessing(SetCells* set, Cell cell,
+void NoParallelCalculator::CellProcessing(SetCells *set, Cell cell,
                                           CellState is_alive) {
   std::size_t living_count = 0;
 
-  for (const auto& [x_offset, y_offset] : config_->rule.neighbors) {
+  for (const auto &[x_offset, y_offset] : config_->rule.neighbors) {
     Cell neighbor;
 
     if (config_->is_endless_board) {
@@ -40,22 +38,20 @@ void NoParallelCalculator::CellProcessing(SetCells* set, Cell cell,
 
   if (config_->rule.WillCellSurvive(is_alive, living_count) ==
       CellState::alive) {
-    result.insert(cell);
+    result.emplace(cell);
   }
 }
 
-void NoParallelCalculator::Clear() {
-  result.clear();
-}
+void NoParallelCalculator::Clear() { result.clear(); }
 
-void NoParallelCalculator::Calc(SetCells* status_quo) {
+void NoParallelCalculator::Calc(SetCells *status_quo) {
   // todo : for optimize
   result.reserve(status_quo->size());
 
-  for (const auto& cell : *status_quo) {
+  for (const auto &cell : *status_quo) {
     CellProcessing(status_quo, cell, /*is_alive=*/CellState::alive);
 
-    for (const auto& [x_offset, y_offset] : config_->rule.neighbors) {
+    for (const auto &[x_offset, y_offset] : config_->rule.neighbors) {
       if (config_->is_endless_board) {
         CellProcessing(
             /*set=*/status_quo,
@@ -76,12 +72,12 @@ void NoParallelCalculator::Calc(SetCells* status_quo) {
   }
 }
 
-void NoParallelCalculator::Update(SetCells* where) {
+void NoParallelCalculator::Update(SetCells *where) {
   *where = std::move(result);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-}  // namespace executor
+} // namespace executor
 
-}  // namespace automata::game_of_life
+} // namespace automata::game_of_life

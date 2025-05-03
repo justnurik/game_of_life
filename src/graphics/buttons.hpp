@@ -1,21 +1,17 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/Graphics/Text.hpp"
-#include "SFML/Graphics/Transformable.hpp"
-#include "SFML/Window/Window.hpp"
+#include <SFML/Graphics.hpp>
 
-#include <vector>
 #include <string>
-#include <iostream>
+#include <vector>
 
 struct Button {
   sf::RectangleShape shape;
   sf::Text text;
 
-  bool Clicked(const sf::Vector2f&);
+  bool Clicked(const sf::Vector2f &);
 
   std::string ClickHandle();
 
@@ -24,9 +20,7 @@ struct Button {
 
 struct Buttons {
 
-  Buttons() {
-    SetUp();
-  }
+  Buttons() { SetUp(); }
 
   std::vector<Button> buttons;
   float button_width;
@@ -47,8 +41,7 @@ struct Buttons {
 
   void SetUp();
 
-  void SetButton(std::string);
+  void SetButton(const std::string &);
 
-  void DrawButtons(sf::RenderWindow&);
-
+  void DrawButtons(sf::RenderWindow &);
 };
